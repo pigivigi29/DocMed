@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.DoctorRegistrationController">
+    <children>
+        <AnchorPane prefHeight="600.0" prefWidth="200.0" style="-fx-background-color: #0E294B;">
+            <children>
+                <ImageView fitHeight="120.0" fitWidth="120.0" layoutX="40.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/logo1.png" />
+                    </image>
+                </ImageView>
+                <Label layoutX="50.0" layoutY="320.0" text="DocMed" textFill="WHITE">
+                    <font>
+                        <Font name="Rockwell" size="25.0" />
+                    </font>
+                </Label>
+            </children></AnchorPane>
+        <AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #ffffff;">
+            <children>
+                <Label layoutX="260.0" layoutY="100.0" text="Sign up to DocMed">
+                    <font>
+                        <Font name="Rockwell" size="20.0" />
+                    </font>
+                </Label>
+                <Button fx:id="button_back" layoutX="20.0" layoutY="20.0" mnemonicParsing="false" style="-fx-background-color: #ffffff; -fx-cursor: hand; -fx-background-radius: 50; -fx-border-radius: 50;" text="Back">
+                    <font>
+                        <Font name="Rockwell" size="15.0" />
+                    </font>
+                    <effect>
+                        <DropShadow height="10.0" radius="4.5" width="10.0">
+                            <color>
+                                <Color red="0.250980406999588" green="0.35686275362968445" blue="0.4901960790157318" />
+                            </color>
+                        </DropShadow>
+                    </effect></Button>
+                <ImageView fitHeight="55.0" fitWidth="55.0" layoutX="330.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/reg2.png" />
+                    </image>
+                </ImageView>
+                <Label layoutX="40.0" layoutY="170.0" text="Surname*">
+                    <font>
+                        <Font name="Rockwell" size="18.0" />
+                    </font>
+                </Label>
+                <Label layoutX="40.0" layoutY="210.0" text="Name*">
+                    <font>
+                        <Font name="Rockwell" size="18.0" />
+                    </font>
+                </Label>
+                <Label layoutX="40.0" layoutY="250.0" text="Patronymic*">
+                    <font>
+                        <Font name="Rockwell" size="18.0" />
+                    </font>
+                </Label>
+                <Label layoutX="390.0" layoutY="170.0" text="Birthday*">
+                    <font>
+                        <Font name="Rockwell" size="18.0" />
+                    </font>
+                </Label>
+                <Label layoutX="390.0" layoutY="210.0" text="Email*">
+                    <font>
+                        <Font name="Rockwell" size="18.0" />
+                    </font>
+                </Label>
+                <Label layoutX="390.0" layoutY="250.0" text="Phone*">
+                    <font>
+                        <Font name="Rockwell" size="18.0" />
+                    </font>
+                </Label>
+                <Label layoutX="390.0" layoutY="290.0" text="Password*">
+                    <font>
+                        <Font name="Rockwell" size="18.0" />
+                    </font>
+                </Label>
+                <Label layoutX="40.0" layoutY="360.0" text="Specialization*">
+                    <font>
+                        <Font name="Rockwell" size="18.0" />
+                    </font>
+                </Label>
+                <Label layoutX="390.0" layoutY="360.0" text="Experience*">
+                    <font>
+                        <Font name="Rockwell" size="18.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="tf_surname" layoutX="170.0" layoutY="170.0" promptText="Ivanov" />
+                <TextField fx:id="tf_name" layoutX="170.0" layoutY="210.0" promptText="Ivan" />
+                <TextField fx:id="tf_patronymic" layoutX="170.0" layoutY="250.0" promptText="Ivanovich" />
+                <TextField fx:id="tf_birthday" layoutX="500.0" layoutY="170.0" promptText="01.01.2001" />
+                <TextField fx:id="tf_email" layoutX="500.0" layoutY="210.0" promptText="ivan@yandex.ru" />
+                <TextField fx:id="tf_phone" layoutX="500.0" layoutY="250.0" text="+7" />
+                <TextField fx:id="tf_password" layoutX="500.0" layoutY="290.0" />
+                <TextField fx:id="tf_specialization" layoutX="185.0" layoutY="360.0" promptText="Pediatrician" />
+                <TextField fx:id="tf_experience" layoutX="515.0" layoutY="360.0" prefWidth="110.0" promptText="5 years" />
+                <CheckBox layoutX="40.0" layoutY="290.0" mnemonicParsing="false" text="No patronymic">
+                    <font>
+                        <Font name="Rockwell" size="18.0" />
+                    </font>
+                </CheckBox>
+                <Line endX="600.0" layoutX="100.0" layoutY="340.0" startX="-100.0">
+                    <effect>
+                        <DropShadow blurType="GAUSSIAN" height="10.0" radius="9.5" width="30.0">
+                            <color>
+                                <Color red="0.250980406999588" green="0.35686275362968445" blue="0.4901960790157318" />
+                            </color>
+                        </DropShadow>
+                    </effect>
+                </Line>
+                <Button fx:id="button_sign_up" layoutX="250.0" layoutY="430.0" mnemonicParsing="false" prefWidth="200.0" style="-fx-background-color: #6DEBD2; -fx-cursor: nahd; -fx-background-radius: 50; -fx-border-radius: 50;" text="Sign up" textFill="#405b7d">
+                    <font>
+                        <Font name="Rockwell" size="25.0" />
+                    </font>
+                    <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" height="20.0" radius="9.5" width="20.0">
+                            <color>
+                                <Color red="0.250980406999588" green="0.35686275362968445" blue="0.4901960790157318" />
+                            </color>
+                        </DropShadow>
+                    </effect></Button>
+                <Button fx:id="button_sign_in" layoutX="380.0" layoutY="503.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-cursor: hand;" text="Sign in!" textFill="#3c97ff">
+                    <font>
+                        <Font name="Rockwell" size="15.0" />
+                    </font>
+                </Button>
+                <Label layoutX="240.0" layoutY="510.0" text="Already a member?">
+                    <font>
+                        <Font name="Arial" size="15.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+    </children>
+</HBox>
+

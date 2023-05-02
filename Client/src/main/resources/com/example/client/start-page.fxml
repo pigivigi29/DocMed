@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.StartPageController">
+    <children>
+        <AnchorPane prefHeight="400.0" prefWidth="200.0" style="-fx-background-color: #0E294B;">
+            <children>
+                <ImageView fitHeight="120.0" fitWidth="120.0" layoutX="40.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/logo1.png" />
+                    </image>
+                </ImageView>
+                <Label layoutX="50.0" layoutY="245.0" text="DocMed" textFill="WHITE">
+                    <font>
+                        <Font name="Rockwell" size="25.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+        <AnchorPane prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: #FFFFFF;">
+            <children>
+                <Button fx:id="button_patient" layoutX="50.0" layoutY="210.0" mnemonicParsing="false" prefWidth="300.0" style="-fx-background-color: #6DEBD2; -fx-cursor: hand; -fx-background-radius: 50; -fx-border-radius: 50; -fx-border-width: 1.5;" text="I'm a patient" textFill="#405b7d">
+                    <font>
+                        <Font name="Rockwell" size="20.0" />
+                    </font>
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                    <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" height="15.0" radius="7.0" width="15.0">
+                            <color>
+                                <Color red="0.054901961237192154" green="0.16078431904315948" blue="0.29411765933036804" />
+                            </color>
+                        </DropShadow>
+                    </effect></Button>
+                <Button fx:id="button_doctor" layoutX="50.0" layoutY="270.0" mnemonicParsing="false" prefWidth="300.0" style="-fx-cursor: hand; -fx-background-color: #88e5ff; -fx-background-radius: 50; -fx-border-radius: 50; -fx-border-width: 1.5;" text="I'm a doctor" textFill="#405b7d">
+                    <font>
+                        <Font name="Rockwell" size="20.0" />
+                    </font>
+                    <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" height="15.0" radius="7.0" width="15.0">
+                            <color>
+                                <Color red="0.054901961237192154" green="0.16078431904315948" blue="0.29411765933036804" />
+                            </color></DropShadow>
+                    </effect>
+                </Button>
+                <Label layoutX="65.0" layoutY="100.0" text="Welcome to DocMed!" textAlignment="CENTER">
+                    <font>
+                        <Font name="Rockwell" size="25.0" />
+                    </font>
+                </Label>
+                <Label layoutX="78.0" layoutY="150.0" text="Please indicate who you are." textAlignment="CENTER">
+                    <font>
+                        <Font name="Rockwell" size="17.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+    </children>
+</HBox>
+
