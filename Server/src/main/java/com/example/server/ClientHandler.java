@@ -13,7 +13,6 @@ import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 // ОБРАБОТЧИК КЛИЕНТА
 
@@ -52,7 +51,7 @@ public class ClientHandler implements Runnable {
                 requestFromClient = bufferedReader.readLine();
                 System.out.println("Запрос - " + requestFromClient + " - получен сервером.");
 
-                String[] words = requestFromClient.split(" ");
+                String[] words = requestFromClient.split("   ");
                 ArrayList<String> newWords = new ArrayList<>(List.of(words));
 
                 String action = newWords.get(0);
@@ -60,24 +59,28 @@ public class ClientHandler implements Runnable {
                 newWords.remove(0);
 
                 if (action.equals("SIGN-IN-PATIENT")) {
-                    requestFromClient = newWords.get(0) + " " + newWords.get(1);
+                    requestFromClient = newWords.get(0) + "   " + newWords.get(1);
                     System.out.println(requestFromClient);
                     DBUtils.authorizationPatient(requestFromClient, action);
                 }
                 if (action.equals("SIGN-IN-DOCTOR")) {
-                    requestFromClient = newWords.get(0) + " " + newWords.get(1);
+                    requestFromClient = newWords.get(0) + "   " + newWords.get(1);
                     System.out.println(requestFromClient);
                     DBUtils.authorizationDoctor(requestFromClient, action);
                 }
                 if (action.equals("SIGN-UP-PATIENT")) {
-                    requestFromClient = newWords.get(0) + " " + newWords.get(1) + " " + newWords.get(2) + " " + newWords.get(3) + " " + newWords.get(4) + " " + newWords.get(5) + " " + newWords.get(6);
+                    requestFromClient = newWords.get(0) + "   " + newWords.get(1) + "   " + newWords.get(2) + "   " + newWords.get(3) + "   " + newWords.get(4) + "   " + newWords.get(5) + "   " + newWords.get(6);
                     System.out.println(requestFromClient);
                     DBUtils.registrationPatient(requestFromClient, action);
                 }
                 if (action.equals("SIGN-UP-DOCTOR")) {
-                    requestFromClient = newWords.get(0) + " " + newWords.get(1) + " " + newWords.get(2) + " " + newWords.get(3) + " " + newWords.get(4) + " " + newWords.get(5) + " " + newWords.get(6) + " " + newWords.get(7) + " " + newWords.get(8);
+                    requestFromClient = newWords.get(0) + "   " + newWords.get(1) + "   " + newWords.get(2) + "   " + newWords.get(3) + "   " + newWords.get(4) + "   " + newWords.get(5) + "   " + newWords.get(6) + "   " + newWords.get(7) + "   " + newWords.get(8);
                     System.out.println(requestFromClient);
                     DBUtils.registrationDoctor(requestFromClient, action);
+                }
+                if (action.equals("InfoAboutDoctors")) {
+                    //DBUtils.getInfoAboutDoctors();
+                    DBUtils.getDates();
                 }
             } catch (IOException e) {
                 closeEverything(socket, bufferedReader, bufferedWriter);
@@ -89,10 +92,21 @@ public class ClientHandler implements Runnable {
     // сейчас в качестве параметра только номер телефона
     public static void sendResponseToClient(String response, String act) {
         try {
-            bufferedWriter.write(response + " " + act);
+            bufferedWriter.write(response + "   " + act);
             bufferedWriter.newLine();
             bufferedWriter.flush();
             System.out.println("Ответ - " + response + " " + act + " - отправлен клиенту.\n");
+        } catch (IOException e) {
+            closeEverything(socket, bufferedReader, bufferedWriter);
+        }
+    }
+
+    public static void sendResponseToClientAboutDoctors(ArrayList<Doctor> doctors, String act) {
+        try {
+            bufferedWriter.write(doctors + " " + act);
+            bufferedWriter.newLine();
+            bufferedWriter.flush();
+            System.out.println("Ответ - " + doctors + " " + act + " - отправлен клиенту.\n");
         } catch (IOException e) {
             closeEverything(socket, bufferedReader, bufferedWriter);
         }

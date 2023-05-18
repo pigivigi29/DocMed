@@ -9,16 +9,17 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ApplicationClient extends Application {
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(ApplicationClient.class.getResource("start-page.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
 
-        stage.setTitle("Authorization page");
+        stage.setTitle("Authorization Page");
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
@@ -27,6 +28,10 @@ public class ApplicationClient extends Application {
     private static Socket socket;
     private static BufferedReader bufferedReader;
     private static BufferedWriter bufferedWriter;
+
+    private static String[] specializations;
+    private static String[] doctors;
+    private String[] doctorsFIO;
 
     public ApplicationClient() {}
 
@@ -57,20 +62,23 @@ public class ApplicationClient extends Application {
         }
     }
 
-    public static void getResponse(ActionEvent actionEvent) {
+    // Получаем ответ с сервера
+    public void getResponse(ActionEvent actionEvent) {
 
         String response;
         //while (socket.isConnected()) {
             try {
+                // response - слушаем, что сказали в трубку
+                // сервер посылает строку формата: Специализация Фамилия Имя Отчество  Команда-ключ
                 response = bufferedReader.readLine();
-                String[] words = response.split(" ");
+                String[] words = response.split("   ");
                 ArrayList<String> newWords = new ArrayList<>(List.of(words));
                 int size = newWords.size();
                 if (newWords.get(0).equals("Error1")) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setContentText("Предоставленные учётные данные неверны. Пользователь не найден.");
                     alert.show();
-                } else if (newWords.get(0).equals("Error2"))  {
+                } else if (newWords.get(0).equals("Error2")) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setContentText("Предоставленные учётные данные неверны. Пароли не совпадают.");
                     alert.show();
@@ -80,9 +88,9 @@ public class ApplicationClient extends Application {
                     alert.show();
                 } else {
                     System.out.println(response + " - ответ с сервера!\n");
+                    // это надо
                     method(newWords.get(size - 1), newWords, actionEvent);
                 }
-
             } catch (IOException e) {
                 closeEverything(socket, bufferedReader, bufferedWriter);
                 //break;
@@ -90,24 +98,99 @@ public class ApplicationClient extends Application {
         //}
     }
 
-    public static void method(String resp, ArrayList<String> words, ActionEvent actionEvent) {
+    public void method(String resp, ArrayList<String> words, ActionEvent actionEvent) {
         words.remove(resp);
         if (resp.equals("SIGN-IN-PATIENT")) {
-            SwitchScene.changeScene(actionEvent,"personal-account.fxml", "Welcome", words.get(0));
+            // SwitchScene.changeScene(actionEvent,"personal-account.fxml", "Welcome", words.get(0));
+            SwitchScene.changeScene(actionEvent, "patient-profile.fxml", "Patient Profile", words.get(0));
         }
         if (resp.equals("SIGN-IN-DOCTOR")) {
-            SwitchScene.changeScene(actionEvent, "personal-account.fxml", "Welcome", words.get(0));
+            SwitchScene.changeScene(actionEvent, "personal-account.fxml", "Doctor Profile", words.get(0));
         }
         if (resp.equals("SIGN-UP-PATIENT")) {
-            SwitchScene.changeScene(actionEvent, "personal-account.fxml", "Welcome", words.get(0));
+            //SwitchScene.changeScene(actionEvent, "personal-account.fxml", "Welcome", words.get(0));
+            SwitchScene.changeScene(actionEvent, "after-registration-patient.fxml", "Registration is completed!", null);
             // сделать так, чтобы после регистрации открывалось новое окно с сообщением об успешной регистрации
             // и кнопкой, чтобы войти в личный кабинет
         }
         if (resp.equals("SIGN-UP-DOCTOR")) {
-            SwitchScene.changeScene(actionEvent, "personal-account.fxml", "Welcome", words.get(0));
+            //SwitchScene.changeScene(actionEvent, "personal-account.fxml", "Welcome", words.get(0));
+            SwitchScene.changeScene(actionEvent, "after-registration-patient.fxml", "Registration is completed!", null);
             // сделать так, чтобы после регистрации открывалось новое окно с сообщением об успешной регистрации
             // и кнопкой, чтобы войти в личный кабинет
         }
+        // выгружаем информацию о докторах (специализации, фио, время приёмов)
+        if (resp.trim().equals("InfoAboutDoctors")) {
+
+            words.remove(words.size() - 1);
+            this.doctors = words.toArray(new String[0]);
+
+            List<String> specializationsList = new ArrayList<>();
+            // List<String> experiences = new ArrayList<>();
+            List<String> doctorFIOList = new ArrayList<>();
+            List<String> timeList = new ArrayList<>();
+
+            // Проверка
+            for (int i = 0; i < words.size(); i++) {
+               String fio = "";
+               String time = "";
+               System.out.println(words.get(i));
+               // строка из массвиа doctor = специализация - фамилия - имя - отчество - время приема
+               String[] doctor = words.get(i).split(" ");
+
+               ArrayList<String> newDoctor = new ArrayList<>(List.of(doctor));
+
+               for (int j = 0; j < newDoctor.size(); j++) {
+                   if (j == 0) {
+                       // если список специализаций еще не содержит данную специализацию, то добавляем ее в список
+                       if (!specializationsList.contains(newDoctor.get(j))) {
+                           specializationsList.add(newDoctor.get(j));
+                       }
+                   } else if (j == 1 || j == 2 || j == 3) {
+                       // experiences.add(newDoctor.get(j));
+                       fio = fio + newDoctor.get(j) + " ";
+                   } else {
+                       // fio = fio + newDoctor.get(j) + " ";
+                       time = time + newDoctor.get(j) + " ";
+                   }
+               }
+               doctorFIOList.add(fio);
+               timeList.add(time);
+            }
+            String[] specializations = specializationsList.toArray(new String[0]);
+            String[] doctorsFIO = doctorFIOList.toArray(new String[0]);
+            String[] time = timeList.toArray(new String[0]);
+
+            // Выводим полученные специализации для choiceBox_specialization
+            System.out.println();
+            for (int i = 0; i < specializations.length; i++) {
+                System.out.println(specializations[i]);
+            }
+
+            // Выводим полученные ФИО врачей для choiceBox_fio_doctor
+            System.out.println();
+            System.out.println("fios");
+            for (int i = 0; i < doctorsFIO.length; i++) {
+                System.out.println(doctorsFIO[i]);
+            }
+
+            this.specializations = specializations;
+
+            // Выводим полученные ФИО врачей для choiceBox_time
+            System.out.println();
+            System.out.println("times");
+            for (int i = 0; i < time.length; i++) {
+                System.out.println(time[i]);
+            }
+        }
+    }
+
+    public static String[] getSpecializations() {
+        return specializations;
+    }
+
+    public static String[] getDoctors() {
+        return doctors;
     }
 
     public static void closeEverything(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter) {

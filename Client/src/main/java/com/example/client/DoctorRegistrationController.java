@@ -92,7 +92,7 @@ public class DoctorRegistrationController implements Initializable {
                 String birthday = tf_birthday.getText();
                 String specialization = tf_specialization.getText();
                 String experience = tf_experience.getText();
-                String request = action + " " + phone + " " + password + " " + surname + " " + name + " " + patronymic + " " + email + " " + birthday + " " + specialization + " " + experience;
+                String request = action + "   " + phone + "   " + password + "   " + surname + "   " + name + "   " + patronymic + "   " + email + "   " + birthday + "   " + specialization + "   " + experience;
 
                 if (phone.isEmpty() || password.isEmpty() || surname.isEmpty() || name.isEmpty() || patronymic.isEmpty() || email.isEmpty() || birthday.isEmpty() || specialization.isEmpty() || experience.isEmpty()) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);

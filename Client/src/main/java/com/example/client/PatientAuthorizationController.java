@@ -64,7 +64,7 @@ public class PatientAuthorizationController implements Initializable {
                 String action = "SIGN-IN-PATIENT";
                 String phone = tf_phone.getText();
                 String password = tf_password.getText();
-                String request = action + " " + phone + " " + password;
+                String request = action + "   " + phone + "   " + password;
 
                 if (phone.isEmpty() || password.isEmpty()) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);

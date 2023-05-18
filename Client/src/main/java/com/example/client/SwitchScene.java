@@ -22,8 +22,12 @@ public class SwitchScene {
             try {
                 FXMLLoader loader = new FXMLLoader(SwitchScene.class.getResource(fxmlFile));
                 root = loader.load();
-                PersonalAccountController personalAccountController = loader.getController();
-                personalAccountController.setUserInformation(phone);
+                // PersonalAccountController personalAccountController = loader.getController();
+                // personalAccountController.setUserInformation(phone);
+
+                 PatientProfileController patientProfileController = loader.getController();
+                 patientProfileController.setUserInformation(phone);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -10,12 +10,12 @@ import javafx.scene.control.Label;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-// Личный кабинет -> запись на приём -> выбрать специализацию ->
-
-public class PersonalAccountController implements Initializable {
+public class PatientProfileController implements Initializable {
 
     @FXML
     private Button button_logout;
+    @FXML
+    private Button button_schedule_an_appointment;
 
     @FXML
     private Label label_welcome;
@@ -23,6 +23,7 @@ public class PersonalAccountController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        // ВЫХОД ИЗ ЛИЧНОГО КАБИНЕТА
         button_logout.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -30,9 +31,17 @@ public class PersonalAccountController implements Initializable {
 
             }
         });
+
+        // ЗАПИСЬ НА ПРИЁМ
+        button_schedule_an_appointment.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                SwitchScene.changeScene(actionEvent, "make-appointment.fxml", "Make an Appointment", null);
+            }
+        });
     }
 
     public void setUserInformation(String phone) {
-        label_welcome.setText("Welcome " + phone);
+        label_welcome.setText("Welcome, " + phone);
     }
 }

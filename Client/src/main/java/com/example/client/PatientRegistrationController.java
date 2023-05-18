@@ -85,7 +85,7 @@ public class PatientRegistrationController implements Initializable {
                 String patronymic = tf_patronymic.getText();
                 String birthday = tf_birthday.getText();
                 String email = tf_email.getText();
-                String request = action + " " + phone + " " + password + " " + surname + " " + name + " " + patronymic + " " + email + " " + birthday;
+                String request = action + "   " + phone + "   " + password + "   " + surname + "   " + name + "   " + patronymic + "   " + email + "   " + birthday;
 
                 if (phone.isEmpty() || password.isEmpty() || surname.isEmpty() || name.isEmpty() || patronymic.isEmpty() || email.isEmpty() || birthday.isEmpty()) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);

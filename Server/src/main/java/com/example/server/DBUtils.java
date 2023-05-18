@@ -6,14 +6,155 @@ package com.example.server;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DBUtils {
+
+    public static void getDates() {
+        Connection connection = null;
+        Statement statement = null;
+
+        try {
+            // Выполнить запрос
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "11111111");
+            statement = connection.createStatement();
+
+            String sql = "SELECT specialization, doctorsFIO, time_10_00, time_11_00, time_12_00, time_13_00, time_15_00, time_16_00, time_17_00, time_18_00, time_19_00 FROM records";
+
+            ResultSet resultSet = statement.executeQuery(sql);
+            String response = "";
+
+            System.out.println("\nВывод информации, хранящейся в базе данных:");
+
+            // Извлечение данных из результирующего набора
+            while(resultSet.next()) {
+
+                // Извлекаем по имени столбца
+                String specialization  = resultSet.getString("specialization");
+                String doctorFIO  = resultSet.getString("doctorsFIO");
+                String _10  = resultSet.getString("time_10_00");
+                String _11  = resultSet.getString("time_11_00");
+                String _12  = resultSet.getString("time_12_00");
+                String _13  = resultSet.getString("time_13_00");
+                String _15  = resultSet.getString("time_15_00");
+                String _16  = resultSet.getString("time_16_00");
+                String _17  = resultSet.getString("time_17_00");
+                String _18  = resultSet.getString("time_18_00");
+                String _19  = resultSet.getString("time_19_00");
+
+                response = response + specialization + " " + doctorFIO + " " + _10 + " " + _11 + " " + _12 + " " + _13 + " " + _15 + " " + _16 + " " + _17 + " " + _18 + " " + _19 + "   ";
+
+                // Проверка
+                System.out.print(specialization + " ");
+                System.out.print(doctorFIO + " ");
+                System.out.print(_10 + " ");
+                System.out.print(_11 + " ");
+                System.out.print(_12 + " ");
+                System.out.print(_13 + " ");
+                System.out.print(_15 + " ");
+                System.out.print(_16 + " ");
+                System.out.print(_17 + " ");
+                System.out.print(_18 + " ");
+                System.out.println(_19);
+            }
+
+            resultSet.close();
+            System.out.println();
+            System.out.println(response);
+            ClientHandler.sendResponseToClient(response, "InfoAboutDoctors");
+
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if(statement != null)
+                    connection.close();
+            } catch(SQLException se) {
+                // do nothing
+            }
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch(SQLException se) {
+                se.printStackTrace();
+            }
+        }
+    }
+
+    /*
+    public static void getInfoAboutDoctors() {
+
+        Connection connection = null;
+        Statement statement = null;
+
+        try {
+            // Выполнить запрос
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/users", "root", "11111111");
+            statement = connection.createStatement();
+
+            String sql = "SELECT surname, name, patronymic, specialization, experience FROM doctors";
+
+            ResultSet resultSet = statement.executeQuery(sql);
+            String response = "";
+
+            //ArrayList<Doctor> doctors = new ArrayList<Doctor>();
+
+            // Извлечение данных из результирующего набора
+            while(resultSet.next()) {
+
+                // Извлекаем по имени столбца
+                String surname  = resultSet.getString("surname");
+                String name  = resultSet.getString("name");
+                String patronymic  = resultSet.getString("patronymic");
+                String specialization  = resultSet.getString("specialization");
+                String experience  = resultSet.getString("experience");
+                response = response + specialization + " " + surname + " " + name + " " + patronymic + " " + experience + "   ";
+
+                //Doctor doctor = new Doctor(surname, name, patronymic, specialization, experience);
+                //doctors.add(doctor);
+
+                //Display values
+                System.out.print(surname + " ");
+                System.out.print(name + " ");
+                System.out.print(patronymic + " ");
+                System.out.print(specialization + " ");
+                System.out.println(experience);
+            }
+
+            resultSet.close();
+            System.out.println(response);
+            ClientHandler.sendResponseToClient(response, "InfoAboutDoctors");
+            // ClientHandler.sendResponseToClientAboutDoctors(doctors, "InfoAboutDoctors");
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if(statement != null)
+                    connection.close();
+            } catch(SQLException se) {
+                // do nothing
+            }
+            try {
+                if (connection != null)
+                    connection.close();
+            } catch(SQLException se) {
+                se.printStackTrace();
+            }
+        }
+    }
+*/
 
     public static void registrationPatient(String requestFromClient, String action) {
 
         String request = requestFromClient;
         String act = action;
-        String[] words = request.split(" ");
+        String[] words = request.split("   ");
 
         Connection connection = null;
         PreparedStatement psInsert = null;
@@ -53,7 +194,7 @@ public class DBUtils {
 
         String request = requestFromClient;
         String act = action;
-        String[] words = request.split(" ");
+        String[] words = request.split("   ");
 
         Connection connection = null;
         PreparedStatement psInsert = null;
@@ -107,7 +248,7 @@ public class DBUtils {
 
         String request = requestFromClient;
         String act = action;
-        String[] words = request.split(" ");
+        String[] words = request.split("   ");
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -146,7 +287,7 @@ public class DBUtils {
 
         String request = requestFromClient;
         String act = action;
-        String[] words = request.split(" ");
+        String[] words = request.split("   ");
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
